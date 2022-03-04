@@ -14,17 +14,17 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- Components versions -->
-		<junit.version>5.7.0</junit.version>
-		<allure.version>2.13.8</allure.version>
+		<junit.version>5.8.2</junit.version>
+		<allure.version>2.16.0</allure.version>
 		<allure.maven>2.10.0</allure.maven>
 		<maven.compiler.version>3.8.1</maven.compiler.version>
-		<maven.surefire.version>2.12.4</maven.surefire.version>
+		<maven.surefire.version>2.7.2</maven.surefire.version>
 		<aspectj.version>1.8.10</aspectj.version>
-		<rest.assured.version>4.3.2</rest.assured.version>
-		<cucumber.version>6.9.1</cucumber.version>
+		<rest.assured.version>4.4.0</rest.assured.version>
+		<cucumber.version>4.8.1</cucumber.version>
 		<slf4j.version>1.8.0-beta4</slf4j.version>
 		<spring.version>4.3.4.RELEASE</spring.version>
-		<projectlombok.version>1.18.16</projectlombok.version>
+		<projectlombok.version>1.18.22</projectlombok.version>
 	</properties>
 
 	<dependencies>
@@ -50,6 +50,12 @@
 		<dependency>
 			<groupId>io.qameta.allure</groupId>
 			<artifactId>allure-cucumber4-jvm</artifactId>
+			<version>${allure.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-junit5</artifactId>
 			<version>${allure.version}</version>
 		</dependency>
 
@@ -92,13 +98,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
@@ -132,7 +131,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.12.4</version>
+				<version>${maven.surefire.version}</version>
 				<configuration>
 					<systemPropertyVariables>
 						<allure.results.directory>${basedir}/target/allure-results</allure.results.directory>
@@ -142,7 +141,12 @@
 			<plugin>
 				<groupId>io.qameta.allure</groupId>
 				<artifactId>allure-maven</artifactId>
-				<version>2.10.0</version>
+				<version>${allure.maven}</version>
+				<configuration>
+					<resultsDirectory>${basedir}/target/allure-results</resultsDirectory>
+					<reportDirectory>${basedir}/target/allure-reports</reportDirectory>
+					<allureDownloadUrl>https://github.com/allure-framework/allure2/releases/download/2.17.2/allure-2.17.2.zip</allureDownloadUrl>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
