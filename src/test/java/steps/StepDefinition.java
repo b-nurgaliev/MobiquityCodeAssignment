@@ -7,17 +7,13 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
-
 import io.restassured.response.Response;
 import pojo.Comment;
 import pojo.Post;
 import pojo.User;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-
 import static constants.Constants.*;
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
