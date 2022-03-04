@@ -29,8 +29,6 @@ public class StepDefinition {
 	CommentHelper commentHelper = new CommentHelper();
 	PostHelper postHelper = new PostHelper();
 
-	private static final Pattern EMAIL_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
 	Context context;
 
 	public StepDefinition(Context context) {
