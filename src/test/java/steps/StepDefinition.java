@@ -1,6 +1,8 @@
 package steps;
 
 import context.Context;
+import helpers.CommentHelper;
+import helpers.PostHelper;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,6 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StepDefinition {
+
+	CommentHelper commentHelper = new CommentHelper();
+	PostHelper postHelper = new PostHelper();
 
 	private static final Pattern EMAIL_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
@@ -58,7 +63,6 @@ public class StepDefinition {
 
 	@And("I collect users ID")
 	public void iCollectUsersID() {
-//		Response response = (Response) context.getContext("rawResponse");
 		Response getDelphine = given()
 				.when()
 				.contentType(ContentType.JSON)
@@ -89,31 +93,11 @@ public class StepDefinition {
 				.allMatch(post -> post.getUserId() == (int) context.getContext("userId")));
 	}
 
-	public ArrayList<Integer> createUserId (ArrayList<Integer> postUserIds, Post[] posts){
-		for (int i = 0; i < posts.length; i++) {
-			postUserIds.add(posts[i].getUserId());
-		}
-		return postUserIds;
-	}
-
-	public void checkUserId (ArrayList<Integer> postUserIds){
-		for (int e : postUserIds){
-			assertEquals(e, context.getContext("userId"));
-		}
-	}
-
-	public ArrayList<Integer> createPostIdsList (ArrayList<Integer> postIds, Post[] posts){
-		for (int i = 0; i < posts.length; i++) {
-			postIds.add(posts[i].getId());
-		}
-		return postIds;
-	}
-
 	@And("I create a list of posts")
 	public void iCreateAListOfPosts() {
 		Post[] postsList = (Post[]) context.getContext("postBody");
 		ArrayList<Integer> postIds = new ArrayList<>();
-		createPostIdsList(postIds, postsList);
+		postHelper.createPostIdsList(postIds, postsList);
 		context.setContext("posts_ids", postIds);
 	}
 
@@ -121,48 +105,22 @@ public class StepDefinition {
 	public void iCreateAListOfAllComments() {
 		ArrayList<Integer> postIds = (ArrayList<Integer>) context.getContext("posts_ids");
 		List<Comment> foundComments = new ArrayList<>();
-		getCommentsList(postIds, foundComments);
+		commentHelper.getCommentsList(postIds, foundComments);
 		context.setContext("found_comments", foundComments);
-	}
-
-	public Response getPostComments(int postId) {
-		return given()
-				.when()
-				.get(COMMENTS_URL + POSTID_QUERY + postId);
-	}
-
-	public List<Comment> getCommentsList(ArrayList<Integer> postIds, List<Comment> foundComments){
-		for (int postId : postIds){
-			foundComments.addAll(Arrays.asList(getPostComments(postId).getBody().as(Comment[].class)));
-		}
-		return foundComments;
-	}
-
-	public ArrayList<String> getEmails(ArrayList<String> emails, List<Comment> foundComments) {
-		for (int i = 0; i < foundComments.size(); i++) {
-			emails.add(foundComments.get(i).getEmail());
-		}
-		return emails;
 	}
 
 	@And("I received list of emails")
 	public void iReceivedListOfEmails() {
 		List<Comment> foundComments = (List<Comment>) context.getContext("found_comments");
 		ArrayList<String> emails = new ArrayList<>();
-		getEmails(emails, foundComments);
+		commentHelper.getEmails(emails, foundComments);
 		context.setContext("get_emails", emails);
-	}
-
-	public void checkEmailFormat(ArrayList<String> emails) {
-		for (String value : emails) {
-			assertTrue(EMAIL_REGEX.matcher(value).matches());
-		}
 	}
 
 	@Then("I validate emails")
 	public void iValidateEmails() {
 		ArrayList<String> emails = (ArrayList<String>) context.getContext("get_emails");
-		checkEmailFormat(emails);
+		commentHelper.checkEmailFormat(emails);
 	}
 
 }
