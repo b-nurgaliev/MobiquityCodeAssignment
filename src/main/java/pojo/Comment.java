@@ -1,7 +1,6 @@
 package pojo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.cucumber.java.eo.Se;
 import lombok.Getter;
 import lombok.Setter;
 

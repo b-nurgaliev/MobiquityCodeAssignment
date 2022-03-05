@@ -15,13 +15,13 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- Components versions -->
 		<junit.version>5.8.2</junit.version>
-		<allure.version>2.16.0</allure.version>
+		<allure.version>2.17.3</allure.version>
 		<allure.maven>2.10.0</allure.maven>
 		<maven.compiler.version>3.8.1</maven.compiler.version>
 		<maven.surefire.version>2.7.2</maven.surefire.version>
 		<aspectj.version>1.8.10</aspectj.version>
-		<rest.assured.version>4.4.0</rest.assured.version>
-		<cucumber.version>4.8.1</cucumber.version>
+		<rest.assured.version>4.5.1</rest.assured.version>
+		<cucumber.version>7.2.3</cucumber.version>
 		<slf4j.version>1.8.0-beta4</slf4j.version>
 		<spring.version>4.3.4.RELEASE</spring.version>
 		<projectlombok.version>1.18.22</projectlombok.version>
@@ -45,7 +45,7 @@
 		</dependency>
 		<dependency>
 			<groupId>io.qameta.allure</groupId>
-			<artifactId>allure-cucumber4-jvm</artifactId>
+			<artifactId>allure-cucumber7-jvm</artifactId>
 			<version>${allure.version}</version>
 		</dependency>
 		<dependency>
@@ -91,11 +91,6 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>${projectlombok.version}</version>
@@ -130,7 +125,6 @@
 				<configuration>
 					<resultsDirectory>${basedir}/target/allure-results</resultsDirectory>
 					<reportDirectory>${basedir}/target/allure-reports</reportDirectory>
-					<allureDownloadUrl>https://github.com/allure-framework/allure2/releases/download/2.17.2/allure-2.17.2.zip</allureDownloadUrl>
 				</configuration>
 			</plugin>
 		</plugins>

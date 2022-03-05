@@ -6,6 +6,7 @@ import helpers.PostHelper;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.qameta.allure.Attachment;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import pojo.Comment;
@@ -33,6 +34,7 @@ public class StepDefinition {
 	}
 
 	@When("^I send GET users request$")
+	@Attachment
 	public void getRawResponse() {
 		Response response = given()
 				.when()
@@ -78,7 +80,7 @@ public class StepDefinition {
 		context.setContext("getPosts", getPosts);
 	}
 
-	@And("I get response body for all posts")
+	@And("All posts have correct user id")
 	public void iGetResponseBodyForAllPosts() {
 		Response postBody = (Response) context.getContext("getPosts");
 		Post[] posts = postBody
@@ -112,7 +114,7 @@ public class StepDefinition {
 		context.setContext("get_emails", emails);
 	}
 
-	@Then("I validate emails")
+	@Then("All comments have valid emails")
 	public void iValidateEmails() {
 		ArrayList<String> emails = (ArrayList<String>) context.getContext("get_emails");
 		commentHelper.checkEmailFormat(emails);
