@@ -6,7 +6,6 @@ import helpers.PostHelper;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.qameta.allure.Attachment;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import pojo.Comment;
@@ -34,7 +33,6 @@ public class StepDefinition {
 	}
 
 	@When("^I send GET users request$")
-	@Attachment
 	public void getRawResponse() {
 		Response response = given()
 				.when()
@@ -66,57 +64,57 @@ public class StepDefinition {
 				.get(USERS_URL + USER_NAME + "Delphine");
 		User[] users = getDelphine
 				.getBody().as(User[].class);
-		int userId = users[0].getId();
-		context.setContext("userId", userId);
+		int rawUserIdResponse = users[0].getId();
+		context.setContext("rawUserIdResponse", rawUserIdResponse);
 	}
 
 	@And("I get posts of user by his ID")
 	public void iGetPostsOfUserByHisID() {
-		int userId = (int) context.getContext("userId");
-		Response getPosts = given()
+		int rawUserIdResponse = (int) context.getContext("rawUserIdResponse");
+		Response rawPostResponse = given()
 				.when()
 				.contentType(ContentType.JSON)
-				.get(POSTS_URL + USER_ID + userId);
-		context.setContext("getPosts", getPosts);
+				.get(POSTS_URL + USER_ID + rawUserIdResponse);
+		context.setContext("rawPostResponse", rawPostResponse);
 	}
 
 	@And("All posts have correct user id")
 	public void iGetResponseBodyForAllPosts() {
-		Response postBody = (Response) context.getContext("getPosts");
-		Post[] posts = postBody
+		Response rawPostBodyResponse = (Response) context.getContext("rawPostResponse");
+		Post[] posts = rawPostBodyResponse
 				.getBody().as(Post[].class);
-		context.setContext("postBody", posts);
+		context.setContext("rawPostBodyResponse", posts);
 		assertTrue(Arrays.stream(posts)
-				.allMatch(post -> post.getUserId() == (int) context.getContext("userId")));
+				.allMatch(post -> post.getUserId() == (int) context.getContext("rawUserIdResponse")));
 	}
 
 	@And("I create a list of posts")
 	public void iCreateAListOfPosts() {
-		Post[] postsList = (Post[]) context.getContext("postBody");
+		Post[] postsList = (Post[]) context.getContext("rawPostBodyResponse");
 		ArrayList<Integer> postIds = new ArrayList<>();
 		postHelper.createPostIdsList(postIds, postsList);
-		context.setContext("posts_ids", postIds);
+		context.setContext("rawPostIdResponse", postIds);
 	}
 
 	@When("I create a list of all comments")
 	public void iCreateAListOfAllComments() {
-		ArrayList<Integer> postIds = (ArrayList<Integer>) context.getContext("posts_ids");
-		List<Comment> foundComments = new ArrayList<>();
-		commentHelper.getCommentsList(postIds, foundComments);
-		context.setContext("found_comments", foundComments);
+		ArrayList<Integer> postIds = (ArrayList<Integer>) context.getContext("rawPostIdResponse");
+		List<Comment> rawFoundCommentsResponse = new ArrayList<>();
+		commentHelper.getCommentsList(postIds, rawFoundCommentsResponse);
+		context.setContext("rawFoundCommentsResponse", rawFoundCommentsResponse);
 	}
 
 	@And("I received list of emails")
 	public void iReceivedListOfEmails() {
-		List<Comment> foundComments = (List<Comment>) context.getContext("found_comments");
+		List<Comment> rawFoundCommentsResponse = (List<Comment>) context.getContext("rawFoundCommentsResponse");
 		ArrayList<String> emails = new ArrayList<>();
-		commentHelper.getEmails(emails, foundComments);
-		context.setContext("get_emails", emails);
+		commentHelper.getEmails(emails, rawFoundCommentsResponse);
+		context.setContext("rawGetEmailResponse", emails);
 	}
 
 	@Then("All comments have valid emails")
 	public void iValidateEmails() {
-		ArrayList<String> emails = (ArrayList<String>) context.getContext("get_emails");
+		ArrayList<String> emails = (ArrayList<String>) context.getContext("rawGetEmailResponse");
 		commentHelper.checkEmailFormat(emails);
 	}
 

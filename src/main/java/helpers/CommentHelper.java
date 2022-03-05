@@ -39,8 +39,8 @@ public class CommentHelper extends JsonValidatorHelper{
 	}
 
 	public ArrayList<String> getEmails(ArrayList<String> emails, List<Comment> foundComments) {
-		for (int i = 0; i < foundComments.size(); i++) {
-			emails.add(foundComments.get(i).getEmail());
+		for (Comment foundComment : foundComments) {
+			emails.add(foundComment.getEmail());
 		}
 		return emails;
 	}
