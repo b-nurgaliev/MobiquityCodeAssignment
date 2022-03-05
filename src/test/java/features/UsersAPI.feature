@@ -1,5 +1,5 @@
 Feature: Users API
-	Scenario: Happy flow
+	Scenario: Comment section email validation
 		When I send GET users request
 		Then Status code is 200
 		And Unique user "Delphine" is found

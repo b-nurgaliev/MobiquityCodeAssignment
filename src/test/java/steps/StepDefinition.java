@@ -11,9 +11,11 @@ import io.restassured.response.Response;
 import pojo.Comment;
 import pojo.Post;
 import pojo.User;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import static constants.Constants.*;
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -59,7 +61,7 @@ public class StepDefinition {
 		Response getDelphine = given()
 				.when()
 				.contentType(ContentType.JSON)
-				.get(USERS_URL + "/?username=Delphine");
+				.get(USERS_URL + USER_NAME + "Delphine");
 		User[] users = getDelphine
 				.getBody().as(User[].class);
 		int userId = users[0].getId();
@@ -72,7 +74,7 @@ public class StepDefinition {
 		Response getPosts = given()
 				.when()
 				.contentType(ContentType.JSON)
-				.get(POSTS_URL + "/?userId=" + userId);
+				.get(POSTS_URL + USER_ID + userId);
 		context.setContext("getPosts", getPosts);
 	}
 
