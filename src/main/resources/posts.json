@@ -1,0 +1,57 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"type": "array",
+	"title": "The root schema",
+	"description": "The root schema comprises the entire JSON document.",
+	"default": [],
+	"additionalItems": true,
+	"items": {
+		"$id": "#/items",
+		"anyOf": [
+			{
+				"$id": "#/items/anyOf/0",
+				"type": "object",
+				"title": "The first anyOf schema",
+				"description": "An explanation about the purpose of this instance.",
+				"default": {},
+				"required": [
+					"userId",
+					"id",
+					"title",
+					"body"
+				],
+				"properties": {
+					"userId": {
+						"$id": "#/items/anyOf/0/properties/userId",
+						"type": "integer",
+						"title": "The userId schema",
+						"description": "An explanation about the purpose of this instance.",
+						"default": 0
+					},
+					"id": {
+						"$id": "#/items/anyOf/0/properties/id",
+						"type": "integer",
+						"title": "The id schema",
+						"description": "An explanation about the purpose of this instance.",
+						"default": 0
+					},
+					"title": {
+						"$id": "#/items/anyOf/0/properties/title",
+						"type": "string",
+						"title": "The title schema",
+						"description": "An explanation about the purpose of this instance.",
+						"default": ""
+					},
+					"body": {
+						"$id": "#/items/anyOf/0/properties/body",
+						"type": "string",
+						"title": "The body schema",
+						"description": "An explanation about the purpose of this instance.",
+						"default": ""
+					}
+				},
+				"additionalProperties": true
+			}
+		]
+	}
+}
