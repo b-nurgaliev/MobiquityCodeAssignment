@@ -4,12 +4,11 @@ import pojo.Post;
 
 import java.util.ArrayList;
 
-public class PostHelper extends JsonValidatorHelper {
+public class PostHelper {
 
-	public ArrayList<Integer> createPostIdsList(ArrayList<Integer> postIds, Post[] posts) {
+	public static void createPostIdsList(ArrayList<Integer> postIds, Post[] posts) {
 		for (Post post : posts) {
 			postIds.add(post.getId());
 		}
-		return postIds;
 	}
 }
