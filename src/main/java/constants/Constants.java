@@ -6,5 +6,6 @@ public class Constants {
 	public static final String COMMENTS_URL = "https://jsonplaceholder.typicode.com/comments";
 	public static final String POSTID_QUERY = "/?postId=";
 	public static final String USER_NAME_QUERY = "/?username=";
-	public static final String USER_ID_QUERY = "/?userId=";
+	public static final String USER_ID_QUERY = "/?Id=";
+	public static final String POSTS_USER_ID_QUERY = "/?userId=";
 }
