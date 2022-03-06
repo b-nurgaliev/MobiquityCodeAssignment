@@ -7,6 +7,8 @@ THERE ARE FOUND BUGS
 * Java 8
 * Junit 5.8
 * Rest API
+* Cucumber 7
+* Allure 2.17
 
 ## Project requirements:
 * Java Development Kit 8 and higher
