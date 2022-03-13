@@ -23,7 +23,6 @@
 		<rest.assured.version>4.5.1</rest.assured.version>
 		<cucumber.version>7.2.3</cucumber.version>
 		<slf4j.version>1.8.0-beta4</slf4j.version>
-		<spring.version>4.3.4.RELEASE</spring.version>
 		<projectlombok.version>1.18.22</projectlombok.version>
 	</properties>
 	<dependencies>
